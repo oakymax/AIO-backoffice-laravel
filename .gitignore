@@ -22,9 +22,14 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 
-/public/build
 /storage/pail
 .env.backup
 .env.production
 .phpactor.json
 auth.json
+
+docker-compose.yml
+docker/Dockerfile
+/.docker.env
+
+public/build
