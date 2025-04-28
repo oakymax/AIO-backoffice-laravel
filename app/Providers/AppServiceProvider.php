@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Session\YiiSessionHandler;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
     }
 
     /**
@@ -19,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Session::extend('custom', function ($app) {
+            return new YiiSessionHandler();
+        });
     }
 }
