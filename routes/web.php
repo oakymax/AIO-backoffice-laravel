@@ -5,10 +5,7 @@ use App\Http\Middleware\ReadSessionFromCookie;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::middleware([
-    ReadSessionFromCookie::class,
-    AutoLoginFromSession::class
-])->prefix('ord')->group(function () {
+Route::prefix('ord')->group(function () {
 //    Route::get('/', function () {
 //        return Inertia::render('Welcome');
 //    })->name('home');

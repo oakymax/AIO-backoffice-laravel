@@ -2,21 +2,18 @@
 
 use App\Http\Middleware\AioEncryptCookies;
 use App\Http\Middleware\AioStartSession;
+use App\Http\Middleware\AutoLoginFromSession;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
-use App\Http\Middleware\PreventSessionCookie;
+use App\Http\Middleware\ReadSessionFromCookie;
 use App\Session\AioSessionManager;
-use App\Session\AioSessionStore;
 use Illuminate\Contracts\Cache\Factory as CacheFactory;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
-use Illuminate\Session\EncryptedStore;
 use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Session\SessionManager;
-use Illuminate\Session\Store;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -42,6 +39,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state', 'PHSESSID']);
 
         $middleware->web(append: [
+            ReadSessionFromCookie::class,
+            AutoLoginFromSession::class,
             HandleAppearance::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,

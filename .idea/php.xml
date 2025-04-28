@@ -151,6 +151,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
       <path value="$PROJECT_DIR$/vendor/opcodesio/log-viewer" />
       <path value="$PROJECT_DIR$/vendor/opcodesio/mail-parser" />
+      <path value="$PROJECT_DIR$/vendor/laravel/folio" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.4" />

@@ -36,6 +36,9 @@
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
         @routes
+        <script>
+            Ziggy.url = '{{ env('APP_URL') }}'
+        </script>
         @vite(['resources/js/app.ts'])
         @inertiaHead
     </head>
