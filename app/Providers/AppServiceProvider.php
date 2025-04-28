@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Session\YiiSessionHandler;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -12,6 +14,12 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+
+        $handler = new YiiSessionHandler();
+
+        Session::extend('database', function ($app) use ($handler) {
+            return $handler;
+        });
     }
 
     /**

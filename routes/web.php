@@ -14,7 +14,7 @@ Route::middleware([
 //    })->name('home');
 
     Route::get('/', function () {
-        // \Illuminate\Support\Facades\Auth::loginUsingId(1);
+        \Illuminate\Support\Facades\Auth::loginUsingId(179);
         return Inertia::render('Dashboard');
     })->name('dashboard');//->middleware(['auth', 'verified'])->name('dashboard');
 
