@@ -43,28 +43,34 @@ class YiiSessionHandler implements SessionHandlerInterface, SessionIdInterface
         $exists = DB::table($this->table)->where('id', $id)->exists();
 
         if ($exists) {
+            Log::warning('YiiSessionHandler.write.update', [$id]);
             return DB::table($this->table)
                 ->where('id', $id)
                 ->update(['data' => $data, 'expire' => $expire]);
         } else {
+            Log::warning('YiiSessionHandler.write.insert', [$id]);
             return DB::table($this->table)
                 ->insert(['id' => $id, 'data' => $data, 'expire' => $expire]);
         }
-        //return true;
     }
 
     public function destroy($id): bool
     {
+        Log::warning('YiiSessionHandler.destroy', [$id]);
         return DB::table($this->table)->where('id', $id)->delete();
     }
 
     public function gc($max_lifetime): false|int
     {
-        return DB::table($this->table)->where('expire', '<', time())->delete();
+        $deletedCount =  DB::table($this->table)->where('expire', '<', time())->delete();
+        Log::warning('YiiSessionHandler.gc', [$deletedCount]);
+        return $deletedCount;
     }
 
     public function create_sid(): string
     {
-        return Str::random(40);
+        $sid = Str::random(40);
+        Log::warning('YiiSessionHandler.create_sid', [$sid]);
+        return $sid;
     }
 }
