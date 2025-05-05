@@ -4,6 +4,7 @@ import AppShell from '@/components/AppShell.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
 import AppSidebarHeader from '@/components/AppSidebarHeader.vue';
 import type { BreadcrumbItemType } from '@/types';
+import AppHeader from '@/components/AppHeader.vue';
 
 interface Props {
     breadcrumbs?: BreadcrumbItemType[];

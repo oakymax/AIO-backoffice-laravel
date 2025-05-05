@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Ord\ContractorsController;
+use App\Http\Controllers\TestController;
 use App\Http\Middleware\AutoLoginFromSession;
 use App\Http\Middleware\ReadSessionFromCookie;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,7 @@ Route::prefix('ord')->group(function () {
 
 
     Route::get('/contractors', [ContractorsController::class, 'index']);
+    Route::get('/test', [TestController::class, 'test']);
 
     require __DIR__ . '/settings.php';
     require __DIR__ . '/auth.php';

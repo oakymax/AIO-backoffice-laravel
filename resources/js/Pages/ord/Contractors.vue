@@ -18,15 +18,15 @@ import { Payment, columns } from '@/components/payments/columns';
 import { onMounted, ref } from 'vue';
 
 import ContractorsTable from '@/components/ord/contractors/ContractorsTable.vue';
+import { Input } from '@/components/ui/input';
+import AppColorModeSwitcher from '@/components/AppColorModeSwitcher.vue';
+import { Button } from '@/components/ui/button';
 
 const props = defineProps({
     contractors: Array<Payment>
 })
 
 const data = ref<Payment[]>([]);
-
-
-console.log(props.contractors)
 
 async function getData(): Promise<Payment[]> {
     return props.contractors || [];
@@ -41,7 +41,6 @@ onMounted(async () => {
     <Head title="Контрагенты" />
     <AppLayout :breadcrumbs="breadcrumbs">
         <ContractorsTable :data="data" class="m-5" />
-        {{  }}
     </AppLayout>
 </template>
 

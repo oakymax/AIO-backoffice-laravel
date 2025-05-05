@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/app/AppSidebarLayout.vue';
-import type { BreadcrumbItemType } from '@/types';
+import { BreadcrumbItemType, SharedData } from '@/types';
+import { useColorMode } from '@vueuse/core';
+import { usePage } from '@inertiajs/vue3';
 
 interface Props {
     breadcrumbs?: BreadcrumbItemType[];
@@ -9,6 +11,11 @@ interface Props {
 withDefaults(defineProps<Props>(), {
     breadcrumbs: () => [],
 });
+
+const darkColorMode = usePage<SharedData>().props.darkColorMode;
+
+const mode = useColorMode();
+mode.value = darkColorMode ? 'dark' : 'light';
 </script>
 
 <template>

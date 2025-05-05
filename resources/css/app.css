@@ -78,6 +78,14 @@
   }
 }
 
+/* дефолтный курсор на кнопках (в tailwind 4 с кнопок по-дефолту убран cursor: pointer) */
+@layer base {
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
 @layer utilities {
   body,
   html {

@@ -36,7 +36,7 @@ return Application::configure(basePath: dirname(__DIR__))
         EncryptCookies::class  => AioEncryptCookies::class
     ])
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->encryptCookies(except: ['appearance', 'sidebar_state', 'PHSESSID']);
+        $middleware->encryptCookies(except: ['appearance', 'sidebar_state', 'dark_color_mode', 'PHSESSID']);
 
         $middleware->web(append: [
             ReadSessionFromCookie::class,

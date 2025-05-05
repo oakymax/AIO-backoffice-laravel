@@ -4,8 +4,9 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItemType } from '@/types';
 
 defineProps<{
-    breadcrumbs?: BreadcrumbItemType[];
+    breadcrumbs: BreadcrumbItemType[];
 }>();
+
 </script>
 
 <template>

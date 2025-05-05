@@ -41,8 +41,6 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
-        Log::warning('HandleInertiaRequests.share', [$request->user(), Auth::user()]);
-
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -55,6 +53,7 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'darkColorMode' => ! $request->cookie('dark_color_mode') || $request->cookie('dark_color_mode') === 'true',
         ];
     }
 }

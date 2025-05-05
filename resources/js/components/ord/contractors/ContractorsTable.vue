@@ -30,6 +30,7 @@ import { valueUpdater } from '@/lib/utils';
 import { h, ref } from 'vue';
 
 import { Contractor, columns } from './ContractorsTableColumns';
+import AppColorModeSwitcher from '@/components/AppColorModeSwitcher.vue';
 
 const props = defineProps<{
     data: Contractor[];
@@ -78,6 +79,7 @@ const table = useVueTable({
 
 <template>
     <div>
+        <AppColorModeSwitcher/>
         <div class="flex items-center py-4">
             <Input
                 class="max-w-sm"
