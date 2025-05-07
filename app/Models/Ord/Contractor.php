@@ -9,16 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Контрагенты (рекламодатели, рекламные агентства, операторы рекламных систем и издатели)
  *
- * @property int $id
+ * @property int            $id
+ * @property int            $created_at
+ * @property int            $updated_at
  *
- * @property int $created_at
- * @property int $updated_at
- *
- * @property string $name
- * @property string $inn
- *
- * @property LegalForm $legal_form
+ * @property string         $name
+ * @property string         $inn
+ * @property LegalForm      $legal_form
  * @property ContractorRole $role
+ *
+ * @property string         $ord_id
+ * @property array          $ord_states
  *
  * @method static ContractorQueryBuilder query()
  */
@@ -40,7 +41,8 @@ class Contractor extends Model
     {
         return [
             'legal_form' => LegalForm::class,
-            'role' => ContractorRole::class
+            'role'       => ContractorRole::class,
+            'ord_states' => 'array'
         ];
     }
 }

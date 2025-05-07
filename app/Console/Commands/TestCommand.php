@@ -32,19 +32,30 @@ class TestCommand extends Command
      */
     public function handle()
     {
+        // тестовый AIO
         $api = new MediascoutApi(
             sandbox: true,
-            login: 'maksim.k@maergroup.ru',
-            password: 'F5s3Lvt/Bw'
+            login: 'M0000487',
+            password: 'lyUYcos4'
         );
 
-        $response = $api->createClient(new CreateClientRequest(
-            inn: '7743738859',
-            legalForm: LegalForm::Entity,
-            name: 'Банная Усадьба'
-        ));
+        $api = new MediascoutApi(
+            sandbox: false,
+            login: 'yulia.sh@maergroup.ru',
+            password: 'AIO/2354'
+        );
+
+
+        $response = $api->getFinalContracts();
+//        $response = $api->getContractCid('CTBc4iBNg5N06MoKMtBH_HBg');
 
         $this->info($response->code);
         $this->info(json_encode($response->body, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+
+//        foreach ($response->body as $contract) {
+//            if (!empty($contract['cid'])) {
+//                $this->warn($contract['id']);
+//            }
+//        }
     }
 }

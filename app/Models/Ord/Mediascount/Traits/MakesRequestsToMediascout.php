@@ -2,10 +2,14 @@
 
 namespace App\Models\Ord\Mediascount\Traits;
 
-use App\Models\Ord\Mediascount\MediascoutApiInternalError;
 use App\Models\Ord\Mediascount\MediascoutApiResponse;
 use Illuminate\Support\Facades\Log;
+use CurlHandle;
+use RuntimeException;
 
+/**
+ * Методы обращения к API Медиаскаут через curl
+ */
 trait MakesRequestsToMediascout
 {
 
@@ -14,8 +18,7 @@ trait MakesRequestsToMediascout
         'production' => 'https://lk.mediascout.ru/webapi/'
     ];
 
-    /** @var resource $curl */
-    protected $curl;
+    protected CurlHandle|false $curl;
 
     protected string $baseUrl;
 
@@ -28,6 +31,10 @@ trait MakesRequestsToMediascout
         $this->baseUrl = self::$baseUrls[$this->sandbox ? 'sandbox' : 'production'];
 
         $this->curl = curl_init();
+
+        if ($this->curl === false) {
+            throw new RuntimeException('curl_init() failed');
+        }
     }
 
     public function __destruct()
@@ -35,12 +42,18 @@ trait MakesRequestsToMediascout
         curl_close($this->curl);
     }
 
-    public function get(string $path, array $payload = []): MediascoutApiResponse|false
+    protected function get(string $path, ?array $payload = []): MediascoutApiResponse|false
     {
-        return $this->request('GET', $path . '?' . http_build_query($payload));
+        $query = $path;
+
+        if (!empty($payload)) {
+            $query .= '?' . http_build_query($payload);
+        }
+
+        return $this->request('GET', $query);
     }
 
-    public function post(string $path, array $payload = []): MediascoutApiResponse|false
+    protected function post(string $path, array $payload = []): MediascoutApiResponse|false
     {
         return $this->request('POST', $path, $payload);
     }
@@ -74,17 +87,17 @@ trait MakesRequestsToMediascout
 
             if ($responseCode < 400) {
                 Log::channel('mediascout')->info(
-                    '{method} {path} {responseCode} succeed',
+                    '{method} {path} succeed with code {responseCode}',
                     compact('method', 'path', 'payload', 'responseCode', 'response')
                 );
             } elseif ($responseCode < 500) {
                 Log::channel('mediascout')->warning(
-                    '{method} {path} {responseCode} bad request',
+                    '{method} {path} bad request with code {responseCode}',
                     compact('method', 'path', 'payload', 'responseCode', 'response')
                 );
             } else {
                 Log::channel('mediascout')->error(
-                    '{method} {path} {responseCode} internal server error',
+                    '{method} {path} internal server error with code {responseCode}',
                     compact('method', 'path', 'payload', 'responseCode', 'response')
                 );
             }
