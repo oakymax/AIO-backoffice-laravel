@@ -2,15 +2,15 @@
 
 namespace App\Providers;
 
+use App\Services\MediascoutLog;
 use App\Session\YiiSessionHandler;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
+use Opcodes\LogViewer\Facades\LogViewer;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
+    /** {@inheritdoc} */
     public function register(): void
     {
 
@@ -24,5 +24,7 @@ class AppServiceProvider extends ServiceProvider
         Session::extend('custom', function ($app) {
             return new YiiSessionHandler();
         });
+
+        LogViewer::extend('botflow', MediascoutLog::class);
     }
 }

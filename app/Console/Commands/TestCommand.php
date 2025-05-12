@@ -39,11 +39,11 @@ class TestCommand extends Command
             password: 'lyUYcos4'
         );
 
-        $api = new MediascoutApi(
-            sandbox: false,
-            login: 'yulia.sh@maergroup.ru',
-            password: 'AIO/2354'
-        );
+//        $api = new MediascoutApi(
+//            sandbox: false,
+//            login: 'yulia.sh@maergroup.ru',
+//            password: 'AIO/2354'
+//        );
 
 
         $response = $api->getFinalContracts();

@@ -1,9 +1,10 @@
 {
-  "name": "oakymax/aio-backoffice-laravel",
+  "name": "oakymax/aio-fresh",
   "type": "project",
-  "description": "AIO backoffice on Laravel 12 + vue",
+  "description": "AIO fresh backoffice on Laravel 12 + Vue 3",
   "keywords": [
     "AIO",
+    "fresh",
     "backoffice",
     "laravel",
     "vue"
@@ -35,7 +36,10 @@
       "App\\": "app/",
       "Database\\Factories\\": "database/factories/",
       "Database\\Seeders\\": "database/seeders/"
-    }
+    },
+    "files": [
+      "app/Helpers/helpers.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {

@@ -85,21 +85,15 @@ trait MakesRequestsToMediascout
         } else {
             $response = json_decode($response, true) ?: [];
 
+            $logMessage = '[{method}][{path}][{responseCode}]';
+            $logContext = json_without_line_breaks(compact('method', 'path', 'payload', 'responseCode', 'response'));
+
             if ($responseCode < 400) {
-                Log::channel('mediascout')->info(
-                    '{method} {path} succeed with code {responseCode}',
-                    compact('method', 'path', 'payload', 'responseCode', 'response')
-                );
+                Log::channel('mediascout')->info($logMessage, $logContext);
             } elseif ($responseCode < 500) {
-                Log::channel('mediascout')->warning(
-                    '{method} {path} bad request with code {responseCode}',
-                    compact('method', 'path', 'payload', 'responseCode', 'response')
-                );
+                Log::channel('mediascout')->warning($logMessage, $logContext);
             } else {
-                Log::channel('mediascout')->error(
-                    '{method} {path} internal server error with code {responseCode}',
-                    compact('method', 'path', 'payload', 'responseCode', 'response')
-                );
+                Log::channel('mediascout')->error($logMessage, $logContext);
             }
 
             return new MediascoutApiResponse(

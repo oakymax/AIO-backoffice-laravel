@@ -39,17 +39,13 @@ class MediascoutApi
     /**
      * Получить Cid (идентификатор договора в ЕРИР) для договора любого типа
      * (работает только на продовом контуре, в песочнице пятисотит)
-     *
-     * @param string $contractId
-     *
-     * @return MediascoutApiResponse
      */
     public function getContractCid(string $contractId): MediascoutApiResponse
     {
         return $this->get("v3/contracts/{$contractId}/cid");
     }
 
-    public function getFinalContracts()
+    public function getFinalContracts(): MediascoutApiResponse
     {
         return $this->get('v3/contracts/final');
     }
@@ -63,6 +59,6 @@ class MediascoutApi
      */
     public function createInitialContractByCid(CreateInitialContractByCidRequest $request): MediascoutApiResponse
     {
-        return  $this->post('v3/contracts/cid', $request->toArray());
+        return $this->post('v3/contracts/cid', $request->toArray());
     }
 }
